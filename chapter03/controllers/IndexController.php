@@ -1,5 +1,5 @@
 <?php
-namespace Multiphalcon\Hello\Controllers;
+namespace Multiphalcon\Chapter03\Controllers;
 
 class IndexController extends \Phalcon\Mvc\Controller{
 

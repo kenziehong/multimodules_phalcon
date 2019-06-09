@@ -3,7 +3,8 @@
 $di = new \Phalcon\Di\FactoryDefault();
 $di->set('router', function(){
     $router = new \Phalcon\Mvc\Router();
-    $router->setDefaultModule('hello');
+    //$router->setDefaultModule('hello');
+    $router->setDefaultModule('chapter03');
     $router->handle();
 
     $router->add('/test1api',[

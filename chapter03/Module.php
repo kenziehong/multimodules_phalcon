@@ -1,5 +1,5 @@
 <?php
-namespace Multiphalcon\Hello;
+namespace Multiphalcon\Chapter03;
 
 /**
  * Phalcon\Mvc\ModuleDefinitionInterface
@@ -15,8 +15,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
     public function registerAutoloaders(\Phalcon\DiInterface $dependencyInjector = null){
         $loader = new \Phalcon\Loader();
         $loader->registerNamespaces([
-            'Multiphalcon\Hello\Controllers' => APPLICATION_PATH . '/hello/controllers',
-            'Multiphalcon\Hello\Models' => APPLICATION_PATH . '/hello/models',
+            'Multiphalcon\Chapter03\Controllers' => APPLICATION_PATH . '/chapter03/controllers',
+            'Multiphalcon\Chapter03\Models' => APPLICATION_PATH . '/chapter03/models',
         ])->register();
 
         $loader->registerClasses([
@@ -32,14 +32,14 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
 	public function registerServices(\Phalcon\DiInterface $dependencyInjector = null){
         $dependencyInjector->set('dispatcher', function(){
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
-            $dispatcher->setDefaultNamespace('Multiphalcon\Hello\Controllers');
+            $dispatcher->setDefaultNamespace('Multiphalcon\Chapter03\Controllers');
             return $dispatcher;
 
         });
 
         $dependencyInjector->set('view', function(){
             $view =  new \Phalcon\Mvc\View();
-            $view->setViewsDir(APPLICATION_PATH . '/hello/views');
+            $view->setViewsDir(APPLICATION_PATH . '/chapter03/views');
             return $view;
 
         });
