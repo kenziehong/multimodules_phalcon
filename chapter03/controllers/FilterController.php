@@ -1,5 +1,6 @@
 <?php
 namespace Multiphalcon\Chapter03\Controllers;
+use Multiphalcon\Vendor\Abccom\Filter\AddLink;
 
 class FilterController extends \Phalcon\Mvc\Controller{
 
@@ -63,8 +64,21 @@ class FilterController extends \Phalcon\Mvc\Controller{
         echo 'Input: '.$input;
         echo '<hr>';
         echo 'Ouput: '.$output;
-        
 
+    }
 
+    //custom addLink
+    public function index5Action(){
+        //$addLink = new AddLink();
+        $this->filter->add('addLink', new AddLink([
+            'keyword'=> 'zendvn',
+            'link' => 'http://abc.com',
+        ]));
+
+        $input = "Zendvn trung tam dao tao chuyen nghiep, zendvn luon co cac khoa hoc bo ich";
+        $output = $this->filter->sanitize($input, 'addLink');
+        echo 'Input: '.$input;
+        echo '<hr>';
+        echo 'Ouput: '.$output;
     }
 }
