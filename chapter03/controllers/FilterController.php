@@ -1,6 +1,7 @@
 <?php
 namespace Multiphalcon\Chapter03\Controllers;
 use Multiphalcon\Vendor\Abccom\Filter\AddLink;
+use Multiphalcon\Vendor\Abccom\Filter\RemoveCircumflex;
 
 class FilterController extends \Phalcon\Mvc\Controller{
 
@@ -77,6 +78,17 @@ class FilterController extends \Phalcon\Mvc\Controller{
 
         $input = "Zendvn trung tam dao tao chuyen nghiep, zendvn luon co cac khoa hoc bo ich";
         $output = $this->filter->sanitize($input, 'addLink');
+        echo 'Input: '.$input;
+        echo '<hr>';
+        echo 'Ouput: '.$output;
+    }
+
+    //custom remove circumflex
+    public function index6Action(){
+        $this->filter->add('rmcircumflex', new RemoveCircumflex());
+
+        $input = "Zendvn là một trung tâm đào tạo chuyên nghiệp, zendvn luôn có các khóa học bổ ích";
+        $output = $this->filter->sanitize($input, 'rmcircumflex');
         echo 'Input: '.$input;
         echo '<hr>';
         echo 'Ouput: '.$output;
