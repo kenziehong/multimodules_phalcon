@@ -41,4 +41,30 @@ class FilterController extends \Phalcon\Mvc\Controller{
     public function index3Action(){
         $this->view->name = "Nguyen Van A";
     }
+
+    //custom filter
+    public function index4Action(){
+        echo __FUNCTION__;
+        echo '<hr>';
+
+        //create custom filter
+        $this->filter->add('lenght5', function($input){
+            $len = strlen($input);
+            if($len>5){
+                $input = substr($input, 0, 5);
+            }
+            return $input;
+
+        });
+
+        //call custom filter
+        $input = 'Nguyen Van A';
+        $output = $this->filter->sanitize($input, 'lenght5');
+        echo 'Input: '.$input;
+        echo '<hr>';
+        echo 'Ouput: '.$output;
+        
+
+
+    }
 }

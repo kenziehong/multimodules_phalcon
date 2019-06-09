@@ -6,3 +6,32 @@ $output = $filter->sanitize($name, 'lower');
 echo "Before filter: ".$name;
 echo '<hr>';
 echo 'After filter: '.$output;
+echo '<hr>';
+
+$filter->add('standardString', function($input){
+    //trim space
+    $input = trim($input);
+    
+    //ucfirst
+    $input = ucfirst($input);
+
+    //delete space
+    $input = preg_replace('#\s+#', ' ', $input);
+
+    //remove dot
+    $input = rtrim($input, '.');
+
+    //add dot
+    $input = $input.'.';
+
+    return $input;
+});
+
+$input1 = "   phalcon          is         cool.   ";
+$ouput1 = $filter->sanitize($input1, 'standardString');
+echo "Input: ".$input1.'- lenght: '.strlen($input1);
+echo '<hr>';
+echo "Output: ".$ouput1.'- lenght: '.strlen($ouput1);
+echo '<hr>';
+
+
