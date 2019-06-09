@@ -1,0 +1,42 @@
+<form action="" method="post" name="test-form">
+    <div>
+        Username: <input type="text" name="username">
+    </div>
+
+    <div>
+        City: <input type="text" name="city">
+    </div>
+
+    <div>
+        <input type="submit" value="submit">
+    </div>
+</form>
+
+<?php
+
+    $request    = new \Phalcon\Http\Request();
+    $di         = new \Phalcon\Di\FactoryDefault();
+    $request->setDI($di);
+    $params     = $request->get(); //get all from get/post method
+   
+
+    echo "<pre>";
+        print_r($params);
+    echo "</pre>";
+   
+    $username   = $request->get("username", "float", "username default", true); //just keep float
+    $city       = $request->get("city", "lower", "city default", false);     //convert everything to lower    
+    $method     = $request->getMethod(); 
+
+
+    echo '<h3 style="color:red"> Username: '.$username.'</h3>';
+    echo '<h3 style="color:blue"> City: '.$city.'</h3>';
+    echo '<h3 style="color:blue"> Method: '.$method.'</h3>';
+
+    if($request->has("username")){
+        echo "yes";
+    }else{
+        echo "no";
+    }
+
+?>

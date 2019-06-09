@@ -1,0 +1,36 @@
+<?php
+
+    //error handler function
+    function customError($errno, $errstr) {
+        echo "<b>Error:</b> [$errno] $errstr";
+    }
+
+    //set error handler
+    set_error_handler("customError");
+
+    //trigger error
+    echo 'username: ' .$strControllerView;
+
+    echo '<pre>';
+        print_r($arrControllerView);
+    echo '</pre>';
+    
+    ////////////////////////////////////////////////
+    $this->partial("shared/partial1");
+    $abc = 1;
+
+    echo $this->view->strControllerView;
+    echo $this->view->abc;
+
+    $this->partial("shared/partial1",[
+        'abc' => &$abc,
+        "name" => "Nguyen Van B",
+        "age" => 20,
+        "class" => "Phalcon",
+        'xyz' => $this->view->strControllerView,
+    ]);
+
+
+    echo $abc;
+
+    echo $dgsrdg;
