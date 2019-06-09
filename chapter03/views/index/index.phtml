@@ -1,0 +1,67 @@
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
+
+<?php
+    echo "<h1>Row 1</h1>";
+    echo "<h1>Row 2</h1>";
+
+    // echo $this->tag->linkTo(
+    //     'show',
+    //     'Button'
+    // ); 
+?>
+
+
+<button type="button">Click Me</button>
+
+<?php 
+    echo '<ul id="user-info"></ul>';
+?>
+
+<h1 id="row3"></h1>
+<pre id="json"></pre>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("button").click(function(){
+
+            //Performs an async AJAX request
+            $.ajax({
+                type: 'POST',
+                url: 'http://abc.com/test1api',
+                dataType: 'json',
+                error: function(er) {
+                    console.log(er);
+                },
+                success: function(data) {
+                    console.table(data);                                    
+                    //var userInfo = $('#user-info');
+                    // var myJSON = JSON.stringify(data)
+                    // userInfo.append(myJSON); 
+
+
+                    // var text = "";
+                    // var x;
+                    // for (x in data) {
+                    // text += data[x] + "<br>";
+                    // }
+
+
+                    //data.forEach(c=>console.log(c));
+
+                    document.getElementById("row3").innerHTML = "Row 3"; 
+                    document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2);
+                    
+                    // Object.values(data).forEach(function(value) {
+                    //     userInfo.append('<li>'+value+'</li>');
+                    // }) 
+                                
+                    
+                }
+            });
+   });
+});
+</script>

@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="en">
+        
+    <head>
+        <meta charset="utf-8">
+
+        <title>Task2 - Use CSS, JS</title>
+        <?php
+        echo $this->tag->stylesheetLink('application/resources/css/styles.css');
+        echo $this->tag->stylesheetLink("https://fonts.googleapis.com/css?family=Nunito", false);
+        ?>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <h1>set image</h1> 
+        <?php
+        //echo $this->tag->image('application/resources/images/tulip.jpg');
+        echo $this->tag->image([
+            'application/resources/images/rose.png',
+            'alt' => 'alt image',
+            'style' => 'width:300px; height:300px',
+            
+            ]);
+            
+            ?>
+
+        <section id='container'>
+        <p id='info'>JavaScript is the programming language of the web. You can use it to add dynamic behavior and store information.</p>
+        <p id='more-info'>JavaScript can also handle requests and responses on a website. It's a great language to master for front-end and back-end web development.</p>  
+        <button id='read-more'>Read More</button>
+        </section> 
+
+
+
+        <h1>Form</h1>
+
+        <div>
+        <form action="" >
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="city" placeholder="City">
+            <input type="submit" name="submit">
+            
+        </form>
+        
+        <h3>List of Flowers</h3>
+        <ul>
+            <li>Rose</li>
+            <li>Tulip</li>
+        </ul>
+        </div>
+
+
+
+        <div class="alert alert-primary" role="alert">
+        A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-secondary" role="alert">
+        A simple secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-success" role="alert">
+        A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-danger" role="alert">
+        A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-warning" role="alert">
+        A simple warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-info" role="alert">
+        A simple info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-light" role="alert">
+        A simple light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+        <div class="alert alert-dark" role="alert">
+        A simple dark alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Navbar</a>
+        
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+        </nav>
+
+
+
+        <?php
+            echo $this->tag->javascriptInclude("application/resources/js/scripts.js");    
+        ?>
+        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    </body>
+</html>
