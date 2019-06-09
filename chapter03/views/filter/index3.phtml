@@ -1,0 +1,8 @@
+<?php
+
+$filter = new \Phalcon\Filter();
+
+$output = $filter->sanitize($name, 'lower');
+echo "Before filter: ".$name;
+echo '<hr>';
+echo 'After filter: '.$output;

@@ -36,4 +36,9 @@ class FilterController extends \Phalcon\Mvc\Controller{
     }
 
     //filter int, float, alphanum, striptags, trim, lower
+
+    //filter in view
+    public function index3Action(){
+        $this->view->name = "Nguyen Van A";
+    }
 }
