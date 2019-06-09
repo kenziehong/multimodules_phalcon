@@ -15,13 +15,15 @@
         }
 
         .after{
-            border: 4px solid blue;
+            border: 10px solid black;
+            background-color: deeppink;
             height: 350px;
             padding: 10px;
         }
         
         .before{
-            border: 2px solid brown;
+            border: 10px solid black;
+            background-color: hotpink;
             height: 250px;
             padding: 10px;
         }
@@ -42,11 +44,28 @@
             color: white;
         }
 
+        .index1{
+            background-color: brown;
+            height: 50px;
+            color: white;
+        }
+
+        .index2{
+            background-color: blue;
+            height: 50px;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
+    <!-- main layout of hello module, use for all controllers -->
     <div class ="header"> 
         <h1>Main Layout - Header</h1>
+
+
+        <!-- get layout of seperate controller 
+        default (indexcontroller - indexAction) -->
         <?php
             echo $this->getContent();
         ?>
