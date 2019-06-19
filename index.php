@@ -1,6 +1,6 @@
 <?php
 
-define('APPLICATION_PATH', __DIR__);
+define('APPLICATION_PATH', __DIR__); //C:\wamp64\www\abc.com\multiphalcon
 
 try{
     //loader
