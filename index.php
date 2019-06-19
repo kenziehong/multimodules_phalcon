@@ -5,6 +5,7 @@ define('APPLICATION_PATH', __DIR__); //C:\wamp64\www\abc.com\multiphalcon
 try{
     //loader
     require_once APPLICATION_PATH . '/config/loader.php';
+    require_once APPLICATION_PATH .'/vendor/autoload.php';
 
     //dependency injection
     require_once APPLICATION_PATH . '/config/service.php';
