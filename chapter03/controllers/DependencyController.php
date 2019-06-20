@@ -86,5 +86,27 @@ class DependencyController extends \Phalcon\Mvc\Controller{
         echo "</pre>";
      
     }
+
+    public function index3Action(){
+        $di = $this->getDI();
+        $services = $di->getServices();
+
+        // echo "<pre>";
+        //     print_r($services);
+        // echo "</pre>";
+
+        $di->set("index_service",[
+            "className" => 'Multiphalcon\Vendor\Abccom\Service\ExampleService',
+            'arguments' => [
+                [
+                    "type" => "service",
+                    "name" => "response",
+                ],
+            ]
+        ]);
+
+        $di->get('index_service');
+
+    }
                 
 }
