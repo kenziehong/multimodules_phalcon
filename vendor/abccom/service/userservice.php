@@ -1,5 +1,6 @@
 <?php
-//namespace Application\Vendor\Xyzcom\Service;
+namespace Multiphalcon\Vendor\Abccom\Service;
+
 class UserService{
     protected $_facebook;
     protected $_yahoo;

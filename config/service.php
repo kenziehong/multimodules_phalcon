@@ -87,7 +87,7 @@ $di->set('router', function(){
     // ]);
     // $router->mount($application);
     
-    $router->mount(new Groupchapter());
+    //$router->mount(new Groupchapter());
     
     
     //convert parameters of router
