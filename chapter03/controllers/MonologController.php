@@ -9,7 +9,10 @@ class MonologController extends \Phalcon\Mvc\Controller{
         // Create the logger
         $logger = new Logger('my_logger');
         // Now add some handlers
-        $logger->pushHandler(new StreamHandler(APPLICATION_PATH . '/my_app.log', Logger::WARNING));
+        //$logger->pushHandler(new StreamHandler(APPLICATION_PATH . '/my_app.log', Logger::WARMING));
+        //$logger->pushHandler(new StreamHandler(APPLICATION_PATH . '/my_app.log', Logger::DEBUG));
+        //$logger->pushHandler(new StreamHandler(APPLICATION_PATH . '/my_app.log', Logger::ERROR));
+        $logger->pushHandler(new StreamHandler(APPLICATION_PATH . '/my_app.log', Logger::EMERGENCY));
         $logger->pushHandler(new FirePHPHandler());
     
         // You can now use your logger
