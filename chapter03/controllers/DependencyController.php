@@ -108,5 +108,26 @@ class DependencyController extends \Phalcon\Mvc\Controller{
         $di->get('index_service');
 
     }
+
+    public function index4Action(){
+        $di = $this->getDI();
+
+        $di->set("index_service", function(){
+            return new UserService();
+        }, true);
+
+        $user1 = $di->get('index_service');
+        $user1->setFace('newFace');
+
+        $user2 = $di->get('index_service');
+
+        echo "<pre>";
+            print_r($user1);
+        echo "</pre>";
+
+        echo "<pre>";
+            print_r($user2);
+        echo "</pre>";
+    }
                 
 }
