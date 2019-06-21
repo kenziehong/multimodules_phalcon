@@ -32,7 +32,7 @@
       <div class="form-row">
         <div class="form-field">
           <label for="email">Email</label>
-          <input type="text" id="email" v-model.trim="email" v-bind:style="[touchedEmailStyles, invalidEmailStyles]" />
+          <input type="text" id="email" v-model.trim="email" />
         </div>
       </div>
       <div class="form-row">
@@ -92,7 +92,7 @@
       </div>
       <div>
         <button type="reset" class="reset">Reset</button>
-        <button type="submit" v-bind:disabled="!formIsValid" v-bind:style="submitButtonStyles">Confirm Tickets</button>
+        <button type="submit" v-bind:disabled="!formIsValid" v-bind:class="{ active: formIsValid }">Confirm Tickets</button>
       </div>
     </form>
   </div>
