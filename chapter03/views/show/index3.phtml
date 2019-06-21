@@ -22,11 +22,11 @@
       <div class="form-row">
         <div class="form-field">
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" />
+          <input type="text" id="first-name" v-model="firstName" />
         </div>
         <div class="form-field">
           <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" />
+          <input type="text" id="last-name" v-model="lastName" />
         </div>
       </div>
       <div class="form-row">
@@ -88,7 +88,7 @@
       </div>
       <div class="form-row vertical">
         <label for="signature">Signature</label>
-        <input id="signature" class="signature" />
+        <input id="signature" class="signature" v-model="fullName" />
       </div>
       <div>
         <button type="reset" class="reset">Reset</button>
