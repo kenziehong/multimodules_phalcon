@@ -1,5 +1,5 @@
 <?php
-namespace Multiphalcon\Hello\Controllers;
+namespace Multiphalcon\Chapter03\Controllers;
 
 class ShowController extends \Phalcon\Mvc\Controller{
     public function indexAction(){
@@ -12,6 +12,10 @@ class ShowController extends \Phalcon\Mvc\Controller{
         
         //header('Content-Type: application/json');
         return json_encode($arrInfo);
+
+    }
+
+    public function index1Action(){
 
     }
 }
