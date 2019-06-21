@@ -22,11 +22,7 @@
     <!-- Developer Pane -->
     <div id="developer-pane">
       <h2>Developer Pane</h2>
-      <div><em>First Name</em>: <span>{{ firstName }}</span></div>
-      <div><em>Last Name</em>: <span>{{ lastName }}</span></div>
-      <div><em>Email</em>: <span>{{ email }}</span></div>
-      <div><em>Ticket Quantity</em>: <span>{{ ticketQuantity }}</span></div>
-      <div><em>Special Requests</em>: <span>{{ specialRequests }}</span></div>
+      <div><em>Ticket Type</em>: <span>{{ ticketType }}</span></div>
     </div>
     
     <form>
@@ -37,13 +33,13 @@
         </div>
         <div class="form-field">
           <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" v-model="lastName"/>
+          <input type="text" id="last-name" v-model="lastName" />
         </div>
       </div>
       <div class="form-row">
         <div class="form-field">
           <label for="email">Email</label>
-          <input type="text" id="email" v-model="email"/>
+          <input type="text" id="email" v-model="email" />
         </div>
       </div>
       <div class="form-row">
@@ -59,11 +55,11 @@
         <div class="form-field">
           <legend>Ticket Type</legend>
           <div>
-            <input type="radio" id="general" value="general">
+            <input type="radio" id="general" value="general" v-model="ticketType">
             <label for="general">General Admission</label>
           </div>
           <div>
-            <input type="radio" id="vip" value="vip">
+            <input type="radio" id="vip" value="vip" v-model="ticketType">
             <label for="vip">VIP</label>
           </div>
         </div>
@@ -87,7 +83,7 @@
       </div>
       <div class="form-row vertical">
         <label for="requests">Special requests</label>
-        <textarea id="requests" v-model="specialRequests" ></textarea>
+        <textarea id="requests" v-model="specialRequests"></textarea>
       </div>
       <div class="form-row vertical agreement checkbox">
         <fieldset>
