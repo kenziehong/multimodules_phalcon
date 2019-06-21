@@ -1,4 +1,16 @@
 /* Add Your Code Here */
+input.required {
+  border-width: 2px;
+}
+
+input.touched {
+  border-color: #bdbcbc;
+}
+
+input.invalid {
+  background-color: #ffeded;
+  border-color: #da5252;
+}
 
 button.active {
   cursor: pointer;
@@ -54,12 +66,7 @@ select {
   padding: .71rem;
   margin-right: 1.21rem;
   background-color: #ffffff;
-  border: solid 1px #e0e0e0;
-}
-
-textarea:focus, 
-input:focus{
-    outline: none;
+  border: solid 1px #979797;
 }
 
 textarea {
