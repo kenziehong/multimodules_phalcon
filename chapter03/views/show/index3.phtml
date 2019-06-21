@@ -18,14 +18,7 @@
       <img class="logo" src="https://s3.amazonaws.com/codecademy-content/courses/vue-instances/ticket_logo.svg" alt="logo">
       <h1>TICKETBOX</h1>
     </header>
-    
-    <!-- Developer Pane -->
-    <div id="developer-pane">
-      <h2>Developer Pane</h2>
-      <div><em>Purchase Agreement Signed</em>: <span>{{ purchaseAgreementSigned }}</span></div>
-    </div>
-    
-    <form>
+    <form @reset="resetFields" @submit="submitForm">
       <div class="form-row">
         <div class="form-field">
           <label for="first-name">First Name</label>
@@ -89,7 +82,7 @@
         <fieldset>
           <legend>Purchase Agreement</legend>
           <p>I, {{ fullName }}, wish to buy {{ ticketDescription }}. I understand that all ticket sales are final.</p>
-          <input type="checkbox" name="agreement" id="agree" v-model="purchaseAgreementSigned"/>
+          <input type="checkbox" name="agreement" id="agree" v-model="purchaseAgreementSigned" />
           <label for="agree">I Agree</label>
         </fieldset>
       </div>
