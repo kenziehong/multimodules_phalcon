@@ -22,4 +22,8 @@ class ShowController extends \Phalcon\Mvc\Controller{
     public function index2Action(){
 
     }
+
+    public function index3Action(){
+
+    }
 }
