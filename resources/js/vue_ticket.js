@@ -46,8 +46,11 @@ const app = new Vue({
 
       return this.ticketQuantity + ' ' + readableTicketType + ' ' + ticketPluralization;
     },
+    emailIsValid: function() {
+      return this.email.includes('@');
+    },
     formIsValid: function() {
-      return this.firstName && this.lastName && this.email && this.purchaseAgreementSigned;
+      return this.firstName && this.lastName && this.emailIsValid && this.purchaseAgreementSigned;
     },
     submitButtonStyles: function() {
       if (this.formIsValid) {
@@ -59,6 +62,27 @@ const app = new Vue({
         return {
           'background-color': 'gray',
           cursor: 'default'
+        }
+      }
+    },
+    touchedEmailStyles: function() {
+      if (this.email) {
+        return {
+          'border-color': '#bdbcbc',
+          'border-width': '2px'
+        }
+      } else {
+        return {
+          'border-color': '#e0e0e0',
+          'border-width': '2px'
+        }
+      }
+    },
+    invalidEmailStyles: function() {
+      if (this.email && !this.emailIsValid) {
+        return {
+          'background-color': '#ffeded',
+          'border-color': '#da5252'
         }
       }
     }
