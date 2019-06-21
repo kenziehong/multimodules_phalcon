@@ -26,7 +26,7 @@ const app = new Vue({
           this.firstName = names[0];
           this.lastName = names[1];
         }
-
+        
         if (names.length <= 1) {
           this.firstName = names[0] || '';
           this.lastName = '';
@@ -45,6 +45,14 @@ const app = new Vue({
       }
 
       return this.ticketQuantity + ' ' + readableTicketType + ' ' + ticketPluralization;
+    }
+  },
+  watch: {
+    specialRequests: function(newRequests, oldRequests) {
+      if (newRequests.toLowerCase().includes('meet and greet') || 
+          newRequests.toLowerCase().includes('meet-and-greet')) {
+        this.ticketType = 'vip';
+      }
     }
   }
 });

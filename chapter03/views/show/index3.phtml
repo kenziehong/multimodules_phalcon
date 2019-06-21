@@ -22,11 +22,11 @@
       <div class="form-row">
         <div class="form-field">
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" v-model="firstName" />
+          <input type="text" id="first-name" />
         </div>
         <div class="form-field">
           <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" v-model="lastName" />
+          <input type="text" id="last-name" />
         </div>
       </div>
       <div class="form-row">
@@ -48,11 +48,11 @@
         <div class="form-field">
           <legend>Ticket Type</legend>
           <div>
-            <input type="radio" id="general" value="general">
+            <input type="radio" id="general" value="general" v-model="ticketType">
             <label for="general">General Admission</label>
           </div>
           <div>
-            <input type="radio" id="vip" value="vip">
+            <input type="radio" id="vip" value="vip" v-model="ticketType">
             <label for="vip">VIP</label>
           </div>
         </div>
@@ -76,7 +76,7 @@
       </div>
       <div class="form-row vertical">
         <label for="requests">Special Requests</label>
-        <textarea id="requests" ></textarea>
+        <textarea id="requests" v-model="specialRequests"></textarea>
       </div>
       <div class="form-row vertical agreement checkbox">
         <fieldset>
@@ -88,7 +88,7 @@
       </div>
       <div class="form-row vertical">
         <label for="signature">Signature</label>
-        <input id="signature" class="signature" v-model="fullName" />
+        <input id="signature" class="signature" />
       </div>
       <div>
         <button type="reset" class="reset">Reset</button>
