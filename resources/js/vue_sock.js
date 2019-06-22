@@ -37,6 +37,9 @@ Vue.component('product',{
                 </button>
                 
             </div>
+
+            <product-review></product-review>
+
         </div>
     `,
     data() {
@@ -94,6 +97,18 @@ Vue.component('product',{
             return 2.99
         }
     } 
+})
+
+Vue.component('product-review', {
+    template: `
+        <input v-model="name">
+    `,
+    data() {
+        return {
+            name: null
+        }
+    }
+
 })
 
 //Add a description to the data object with the value "A pair of warm, fuzzy socks". 
