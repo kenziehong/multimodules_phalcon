@@ -38,7 +38,20 @@ Vue.component('product',{
                 
             </div>
 
-            <product-review></product-review>
+            <div>
+                <h2>Reviews</h2>
+                <p v-if="!reviews.length">There are no reviews yet.</p>
+
+                <ul>
+                    <li v-for="review in reviews"> 
+                        <p>Name: {{ review.name }}</p>
+                        <p>Rating: {{ review.rating }}</p>
+                        <p>Review: {{ review.review }}</p>
+                    </li>
+                </ul>
+            </div>
+
+            <product-review @review-submitted="addReview"></product-review>
 
         </div>
     `,
@@ -70,6 +83,7 @@ Vue.component('product',{
                 "text-danger": false,
             },
             isActive: true,
+            reviews: [],
         }
     },
     methods: {
@@ -78,6 +92,9 @@ Vue.component('product',{
         },
         updateProduct: function (index) {
             this.selectedVariant = index
+        },
+        addReview(productReview) {
+            this.reviews.push(productReview)
         }
     },
     computed: {
@@ -101,20 +118,20 @@ Vue.component('product',{
 
 Vue.component('product-review', {
     template: `
-        <form class="review-form">
+        <form class="review-form" @submit.prevent="onSubmit">
             <p>
                 <label for="name">Name:</label>
-                <input id="name" placeholder="name">
+                <input id="name" v-model="name" placeholder="name">
             </p>
             
             <p>
                 <label for="review">Review:</label>      
-                <textarea id="review"></textarea>
+                <textarea id="review" v-model="review"></textarea>
             </p>
             
             <p>
                 <label for="rating">Rating:</label>
-                <select id="rating">
+                <select id="rating" v-model.number="rating">
                     <option>5</option>
                     <option>4</option>
                     <option>3</option>
@@ -134,6 +151,19 @@ Vue.component('product-review', {
             review: null,
             rating: null,
         }
+    },
+    methods: {
+       onSubmit() {
+        let productReview = {
+            name: this.name,
+            review: this.review,
+            rating: this.rating,
+        }
+        this.$emit('review-submitted', productReview)
+        this.name = null
+        this.review = null
+        this.rating = null
+       }
     }
 
 })
