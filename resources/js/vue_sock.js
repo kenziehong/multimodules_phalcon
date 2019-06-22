@@ -6,7 +6,7 @@ var app = new Vue({
     data: {
       product: 'Socks',
       image: '../resources/image/sock-green.jpg',
-      inStock: false,
+      inStock: true,
       inventory: 8,
       details: ["80% cotton", "20% polyester", "Gender-neutral"],
       variants: [
@@ -22,6 +22,13 @@ var app = new Vue({
           },
       ],
       cart: 0,
+      activeClass: "active",
+      errorClass: "text-danger",
+      classObject: {
+          active: true,
+          "text-danger": false,
+      },
+      isActive: true,
     },
     methods: {
         addToCart: function () {

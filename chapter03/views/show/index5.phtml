@@ -28,7 +28,10 @@
 
         <button v-on:click="addToCart" 
                 :disable="!inStock"
-                :class="{disabledButton: !inStock}">Add to Cart</button>
+                :class="{disabledButton: !inStock}"
+                :class="[activeClass, errorClass]"
+                :class="classObject"
+                :class="[isActive ? activeClass : '']">Add to Cart</button>
         <div class="cart">
             <p>Cart: {{ cart }}</p>
         </div>
