@@ -1,0 +1,325 @@
+<?php
+use App\Common\Enum\CountryEnum;
+use App\Common\Util\GeneralUtil;
+use App\Common\Util\UrlUtil;
+
+$strCountryCode = ($_GET['tab'] ? $_GET['tab'] : $this->arrDispatcherParam['countryCode']);
+
+$fbLogin = new App\Library\OpenID\Facebook();
+$googleLogin = new App\Library\OpenID\Google();
+
+// ! Set absolute Path
+$fbLogin->setUrlCallback(BASE_URL . $this->url->get([
+  'for' => 'userLoginSocial',
+  'provider' => 'facebook'
+]));
+$googleLogin->setUrlCallback(BASE_URL . $this->url->get([
+  'for' => 'userLoginSocial',
+  'provider' => 'google'
+]));
+?>
+
+<script>
+  function changeLanguage(code) {
+    $.ajax({
+          type: 'POST',
+          url: window.fado.baseUrl + '/ajax/language/change',
+          dataType: 'json',
+          data: {
+            'code': code
+          },
+          success: function() {
+            window.location.reload();
+          },
+          error: function() {
+          },
+          complete: function() {
+          },
+        });
+  }
+</script>
+
+<header id="header-block" class="header-block">
+  <div class="header-block__head">
+    <div class="header-block__head">
+      <div class="header-block__export-segment">
+        <a href="http://alibaba.fado.vn" target="_blank"><?php $this->language->echoGlobal('text_header_alibaba'); ?> <img class="header-block__export-segment__new-icon" src="<?php echo $this->arrLayoutConfig['imageUrl']; ?>/gif/new-blue.gif" alt=""/></a>
+      </div>
+      <!--<a href="javascript:;" onclick="changeLanguage('vi');">VI</a><span> / </span><a href="javascript:;" onclick="changeLanguage('en');">EN</a>-->
+    </div><!-- .header-block__head -->
+
+    <div class="header-block__head__right-col">
+      <div class="header-block__support-segment">
+        <div class="header-block__support-segment__head">
+          <i class="fas fa-question-circle margin--right-3px"></i>
+          <a href="<?php echo $this->url->get(['for' => 'landingSupportPage'])?>" target="_blank"><?php $this->language->echoGlobal('text_header_support_center'); ?>:</a>
+          <a class="margin--left-3px" href="tel:<?php echo $this->contactUtil->arrPhone['value'] ?>"><?php echo $this->contactUtil->arrPhone['title'] ?></a>
+          <span class="margin--x-3px">/</span>
+          <a href="mailto:<?php echo $this->contactUtil->arrEmail['value'] ?>"><?php echo $this->contactUtil->arrEmail['value'] ?></a>
+          <span class="margin--left-5px">(<?php echo $this->contactUtil->arrHoChiMinhBranch['arrWorkTime']['phone'];?>)</span>
+        </div>
+
+        <div class="header-block__support-segment__main">
+          <ul class="header-block__link-list">
+            <li><a href="<?php echo $this->url->get(['for' => 'landingSupportPage'])?>" target="_blank"><?php $this->language->echoGlobal('text_header_support_center'); ?></a></li>
+            <li><a href="<?php echo $this->url->get(['for' => 'landingPaymentPage'])?>" target="_blank"><?php $this->language->echoGlobal('text_header_support_center_block_order_and_payment'); ?></a></li>
+            <li><a href="<?php echo $this->url->get(['for' => 'newsDetailPage', 'slug' => 'cach-thuc-giao-hang', 'id' => 14])?>"><?php $this->language->echoGlobal('text_header_support_center_block_delivery_and_receive'); ?></a></li>
+            <li><a href="<?php echo $this->url->get(['for' => 'newsDetailPage', 'slug' => 'bao-hanh-san-pham', 'id' => 23])?>"><?php $this->language->echoGlobal('text_header_support_center_block_return_and_refund'); ?></a></li>
+            <li><a href="<?php echo $this->url->get(['for' => 'newsPage', 'slug' => 'kinh-nghiem-mua-hang-amazon', 'id' => 18])?>"><?php $this->language->echoGlobal('text_header_support_center_block_shopping_guide'); ?></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="header-block__trans-segment" class="header-block__trans-segment" tabindex="-1">
+        <div id="header-block__trans-segment__head" class="header-block__trans-segment__head">
+          <i class="far fa-language font--size-16px align-text-bottom margin--right-5px"></i> <?php $this->language->echoGlobal('text_language'); ?>
+        </div>
+        <div class="header-block__trans-segment__main">
+          <div id="gg-translate" class="gg-translate">
+            <div id="gg-translate__loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- .header-block__head__right-col -->
+  </div><!-- .header-block__head -->
+
+  <div class="header-block__body">
+    <div class="header-block__body-left-col">
+      <div class="header-block__logo-col">
+        <a href="<?php echo BASE_URL ?>"><img class="header-block__logo-img" src="<?php echo $this->arrLayoutConfig['imageUrl'] ?>/logo/logo-dark.svg" alt=""/></a>
+      </div>
+
+      <div id="header-block__web-col" class="header-block__web-col">
+        <div id="header-block__web-segment--us" class="header-block__web-segment">
+          <a
+            class="header-block__web-btn <?php echo ($strCountryCode == CountryEnum::STR_US_CODE)? 'is-active':'' ?>"
+            href="<?php echo $this->url->get(['for' => 'webHomePage', 'countryCode' => CountryEnum::STR_US_CODE]); ?>"
+          >
+            <div class="header-block__web-btn-inner">
+              <i class="svg -svg-24px -svg-flag-circle-us"></i>
+              <div class="header-block__web-btn__title">
+                <span class="header-block__web-btn__title-res-text"><?php $this->language->echoGlobal('text_header_product_from'); ?></span> <?php $this->language->echoGlobal('country_us'); ?>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div id="header-block__web-segment--jp" class="header-block__web-segment">
+          <a
+            class="header-block__web-btn <?php echo ($strCountryCode == CountryEnum::STR_JP_CODE)? 'is-active':'' ?>"
+            href="<?php echo $this->url->get(['for' => 'webHomePage', 'countryCode' => CountryEnum::STR_JP_CODE]); ?>"
+          >
+            <div class="header-block__web-btn-inner">
+              <i class="svg -svg-24px -svg-flag-circle-jp"></i>
+              <div class="header-block__web-btn__title">
+                <span class="header-block__web-btn__title-res-text"><?php $this->language->echoGlobal('text_header_product_from'); ?></span> <?php $this->language->echoGlobal('country_jp'); ?>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div id="header-block__web-segment--de" class="header-block__web-segment">
+          <a
+            class="header-block__web-btn <?php echo ($strCountryCode == CountryEnum::STR_DE_CODE)? 'is-active':'' ?>"
+            href="<?php echo $this->url->get(['for' => 'webHomePage', 'countryCode' => CountryEnum::STR_DE_CODE]); ?>"
+          >
+            <div class="header-block__web-btn-inner">
+              <i class="svg -svg-24px -svg-flag-circle-de"></i>
+              <div class="header-block__web-btn__title">
+                <span class="header-block__web-btn__title-res-text"><?php $this->language->echoGlobal('text_header_product_from'); ?></span> <?php $this->language->echoGlobal('country_de'); ?>
+              </div>
+            </div>
+        </a>
+        </div>
+        <div id="header-block__web-segment--uk" class="header-block__web-segment">
+          <a
+            class="header-block__web-btn <?php echo ($strCountryCode == CountryEnum::STR_UK_CODE)? 'is-active':'' ?>"
+            href="<?php echo UrlUtil::getTodayDealPageUrl(CountryEnum::STR_UK_CODE); ?>"
+          >
+            <div class="header-block__web-btn-inner no-arrow">
+              <i class="svg -svg-24px -svg-flag-circle-uk"></i>
+              <div class="header-block__web-btn__title">
+                <span class="header-block__web-btn__title-res-text"><?php $this->language->echoGlobal('text_header_product_from'); ?></span> <?php $this->language->echoGlobal('country_uk'); ?>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div id="header-block__cate-segment" class="header-block__cate-segment"></div>
+      </div><!-- .header-block__web-col -->
+    </div><!-- .header-block__body-left-col -->
+
+    <div class="header-block__body-center-col">
+      <div id="header-block__search-form" class="header-block__search-form is-loading"></div>
+    </div>
+
+    <div class="header-block__body-right-col">
+      <div id="header-block__order-segment" class="header-block__order-segment" tabindex="-1">
+        <div id="header-block__order-segment__head" class="header-block__order-segment__head">
+          <i class="svg -svg-order-gray -svg-32px"></i>
+          <div class="header-block__order-segment__title">
+            <?php $this->language->echoGlobal('html_header_track_order'); ?>
+          </div>
+        </div>
+
+        <div class="header-block__order-segment__main">
+          <form id="header-block__search-order-form" class="header-block__search-order-form">
+            <div class="mini-loading-component -dark-theme"></div>
+
+            <div class="my-form-group">
+              <label class="fd-control-lbl"><?php $this->language->echoGlobal('entry_header_track_order_block_order_code'); ?></label>
+              <input id="header-block__search-order-form__order-id-input" type="text" class="my-form-control -control-md" name="orderID" placeholder="<?php $this->language->echoGlobal('entry_header_track_order_block_order_code_placeholder'); ?>"/>
+            </div>
+
+            <div class="my-form-group">
+              <label class="fd-control-lbl"><?php $this->language->echoGlobal('entry_header_track_order_block_phone'); ?></label>
+              <input id="header-block__search-order-form__phone-input" type="text" class="my-form-control -control-md" name="phone" placeholder="<?php $this->language->echoGlobal('entry_header_track_order_block_phone_placeholder'); ?>"/>
+            </div>
+
+            <div class="my-form-group text--align-center">
+              <button class="my-btn -btn-md -btn-grd-bg -btn-pill"><?php $this->language->echoGlobal('button_header_track_order_block_submit'); ?></button>
+            </div>
+          </form>
+
+          <?php $this->language->echoGlobal('html_template_header_track_order_block_faq', ['url' => $this->url->get(['for' => 'qaPage'])]); ?>
+        </div>
+      </div>
+
+      <div class="header-block__vertical-line"></div>
+
+      <div class="header-block__user-segment">
+        <div class="header-block__user-segment__head">
+          <i class="svg -svg-user-gray -svg-32px"></i>
+          <div class="header-block__user-segment__title">
+            <?php if($this->arrLoginInfo):?>
+              <?php $this->language->echoGlobal('html_template_header_user_block_logged_in', ['profile_page_url' => $this->url->get(['for' => 'userProfilePage']), 'user_fullname' => $this->arrLoginInfo['fullname']]); ?>
+            <?php else: ?>
+              <?php $this->language->echoGlobal('html_template_header_user_block_not_logged_in', ['login_page_url' => $this->url->get(['for' => 'userLoginPage']), 'register_page_url' => $this->url->get(['for' => 'userRegisterPage'])]); ?>
+            <?php endif ?>
+            <br/><?php $this->language->echoGlobal('text_header_user_block_description'); ?>
+          </div>
+        </div>
+
+        <div class="header-block__user-segment__main">
+          <?php if($this->arrLoginInfo): ?>
+            <?php //<div class="header-block__user-panel"> ?>
+              <div class="header-block__user-panel__head">
+                <?php
+                  if($this->arrLoginInfo['isAgency'] == 1) :
+                ?>
+                  <div class="header-block__user-info-field">
+                    <div class="header-block__user-info-field__title">
+                      <i class="fas fa-users margin--right-5px"></i>
+                      Quý khách hiện đang là đại lý của <?php echo BRAND_NAME;?>
+                    </div>
+                  </div>
+                <?php
+                  endif;
+                ?>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__title"><?php $this->language->echoGlobal('text_header_user_block_logged_in_level'); ?>:</div>
+                  <div class="header-block__user-info-field__control">
+                    <i class="si -si-vip-<?php echo GeneralUtil::getUserLevel($this->arrLoginInfo['userCoin']['total']) ?>"></i> <i class="fas fa-question-circle js-ttip text-success margin--left-5px" data-ttip-title="<?php $this->language->echoGlobal('text_header_user_block_logged_in_level_tooltip'); ?>"></i>
+                  </div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__title"><?php $this->language->echoGlobal('text_header_user_block_logged_in_coin'); ?>:</div>
+                  <div class="header-block__user-info-field__control"><?php echo GeneralUtil::formatNumber($this->arrLoginInfo['userCoin']['total']) ?> <?php echo BRAND_NAME ?> Coin</div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__title">
+                    <a href="<?php echo $this->url->get(['for' => 'userProfilePage']) ?>">
+                      <?php $this->language->echoGlobal('text_header_user_block_logged_in_change_profile'); ?>
+                      <?php
+                      if(empty($this->arrLoginInfo['birthdate'])):
+                      ?>
+                        <i class="fas fa-exclamation-circle text-warning js-ttip" data-ttip-title="<?php $this->language->echoGlobal('html_header_user_block_logged_in_update_birthdate_tooltip'); ?>"></i>
+                      <?php endif; ?>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="header-block__user-panel__main">
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__icon"><i class="si -si-user-order"></i></div>
+                  <div class="header-block__user-info-field__title">
+                    <a href="<?php echo $this->url->get(['for' => 'userOrderHistoryPage']);?>"><?php $this->language->echoGlobal('text_header_user_block_logged_in_order'); ?></a>
+                  </div>
+                  <div class="header-block__user-info-field__control">
+                    <div class="header-block__user-info-field__quantity"><?php $this->language->echoGlobal('text_template_header_user_block_logged_in_total_order', ['total' => (int) $this->arrLoginInfo['totalBillOrder']]); ?></div>
+                  </div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__icon"><i class="si -si-user-favorite"></i></div>
+                  <div class="header-block__user-info-field__title"><a href="<?php echo $this->url->get(['for' => 'userFavoriteProductPage']);?>"><?php $this->language->echoGlobal('text_header_user_block_logged_in_favorite_product'); ?></a></div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__icon"><i class="si -si-user-quotation"></i></div>
+                  <div class="header-block__user-info-field__title"><a href="<?php echo $this->url->get(['for' => 'userRequestQuotationPage']);?>"><?php $this->language->echoGlobal('text_header_user_block_logged_in_request_quotation'); ?></a></div>
+                  <div class="header-block__user-info-field__control">
+                    <div class="header-block__user-info-field__quantity"><?php echo (int) $this->arrLoginInfo['totalQuotationItem'] ?></div>
+                  </div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__icon"><i class="si -si-user-promo-code"></i></div>
+                  <div class="header-block__user-info-field__title"><a href="<?php echo $this->url->get(['for' => 'userDiscountCodePage']);?>"><?php $this->language->echoGlobal('text_header_user_block_logged_in_discount_code'); ?></a></div>
+                </div>
+
+                <div class="header-block__user-info-field">
+                  <div class="header-block__user-info-field__icon"><i class="si -si-user-affiliate"></i></div>
+                  <div class="header-block__user-info-field__title">
+                    <a href="<?php echo $this->url->get(['for' => 'userAffiliateOrderPage']);?>">
+                      <?php $this->language->echoGlobal('html_header_user_block_logged_in_affiliate'); ?>
+                    </a>
+                  </div>
+                  <div class="header-block__user-info-field__control">
+                    <a class="my-btn -btn-grd-bg -btn-pill -btn-xs" href="<?php echo $this->url->get(['for' => 'userAffiliateCreateLinkPage']);?>"><?php $this->language->echoGlobal('button_header_user_block_logged_in_affiliate'); ?></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="header-block__user-panel-foot">
+                <a class="header-block__logout-btn" href="<?php echo $this->url->get(['for' => 'userLogoutPage'], ['v' => APPLICATION_VER]);?>"><i class="si -si-user-logout"></i> <?php $this->language->echoGlobal('text_header_user_block_logged_in_logout'); ?></a>
+              </div>
+            <?php //</div><!-- .header-block__user-panel --> ?>
+          <?php else: ?>
+            <div class="header-block__user-login-panel">
+              <p class="text--align-center"><?php $this->language->echoGlobal('text_header_user_block_not_logged_in_welcome'); ?></p>
+              <p><a class="my-btn -btn-grd-border -btn-md -btn-pill -btn-block header-block__user-login-btn" href="<?php echo $this->url->get(['for' => 'userLoginPage']) ?>"><span class="my-btn__inner"><?php $this->language->echoGlobal('button_header_user_block_not_logged_in_login'); ?></span></a></p>
+              <p><a class="my-btn -btn-grd-bg -btn-md -btn-pill -btn-block" href="<?php echo $this->url->get(['for' => 'userRegisterPage']) ?>"><?php $this->language->echoGlobal('button_header_user_block_not_logged_in_register'); ?></a></p>
+              <p class="text--align-center"><?php $this->language->echoGlobal('text_header_user_block_not_logged_in_other_login_method'); ?></p>
+              <div class="header-block__login-btn-wrap row -row-5px">
+                <div class="col-6">
+                  <a class="header-block__social-btn -fb" href="javascript:;" onclick="Social.openSocialLogin('<?php echo $fbLogin->getLoginUrl(); ?>')">
+                    <i class="fab fa-facebook-square"></i> Facebook
+                  </a>
+                </div>
+                <div class="col-6">
+                  <a class="header-block__social-btn -gp" href="javascript:;" onclick="Social.openSocialLogin('<?php echo $googleLogin->getLoginUrl(); ?>')">
+                    <i class="fab fa-google-plus-square"></i> Google Plus
+                  </a>
+                </div>
+              </div>
+            </div>
+          <?php endif ?>
+        </div><!-- .header-block__user-segment__main -->
+      </div><!-- .header-block__user-segment -->
+
+      <div class="header-block__vertical-line"></div>
+
+      <div id="header-block__cart-segment" class="header-block__cart-segment">
+        <a class="header-block__cart-link" href="<?php echo $this->url->get(['for' => 'cartPage']) ?>">
+          <i class="svg -svg-cart-gray -svg-32px"></i>
+          <span class="header-block__cart-number">0</span>
+        </a>
+      </div>
+    </div><!-- .header-block__body-right-col -->
+  </div><!-- .header-block__body -->
+</header>
