@@ -6,6 +6,7 @@ var app = new Vue({
     data: {
       product: 'Socks',
       image: '../resources/image/sock-green.jpg',
-      inStock: false,
+      inStock: true,
+      inventory: 8,
     } 
   })
