@@ -3,13 +3,19 @@
 <div class="nav-bar"></div>
 <div id="app">
 
-    <div class="cart">
+    <div class="cart"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+        :class="{ active: hover }">
+
         <p>Cart: {{ cart.length }}</p>
+        <div v-if="hover">This is a secret message.</div>
     </div>
+    <div v-if="hover">This is a secret message.</div>
 
     <product :premium="premium" @add-to-cart="updateCart"></product>
-    <product></product>
-    <product></product>
+    <product @add-to-cart="updateCart"></product>
+    <product @add-to-cart="updateCart"></product>
   
 </div> 
 

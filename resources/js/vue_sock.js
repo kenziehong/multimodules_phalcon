@@ -73,7 +73,7 @@ Vue.component('product',{
                     variantId: 2235,
                     variantColor: "blue",
                     variantImage: '../resources/image/sock-blue.jpg',
-                    variantQuantity: 0,
+                    variantQuantity: 12,
                 },
             ],
             activeClass: "active",
@@ -191,10 +191,13 @@ var app = new Vue({
     data: {
         premium: true,
         cart: [],
+        hover: false,
     },
     methods: {
         updateCart(id) {
             this.cart.push(id)
-        }
+        },
+
     }
   })
+
