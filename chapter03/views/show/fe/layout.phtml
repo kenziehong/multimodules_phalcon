@@ -1,0 +1,261 @@
+<?php
+use App\Common\Util\GeneralUtil;
+use App\Common\Enum\CountryEnum;
+use App\Common\Util\UrlUtil;
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="keywords" content="<?php echo $this->view->strPageMetaKeywords ?>"/>
+  <meta name="description" content="<?php echo $this->view->strPageMetaDescription ?>"/>
+
+  <?php ### Start ### Những thẻ tag quan trọng, buộc phải có để SEO ?>
+  <meta http-equiv="content-language" content="vi" />
+  <?php if (empty($this->view->strPageHeadTitle)): ?>
+    <meta name="robots" content="noindex, nofollow" />
+  <?php else:
+    $strControllerActionName = $this->router->getControllerName() . '-' . $this->router->getActionName();
+    $strControllerActionNameWithCountryCode = $strControllerActionName . '-' . $this->arrDispatcherParam['countryCode'];
+  ?>
+    <?php if ($strControllerActionName === 'search-result'
+      || $strControllerActionNameWithCountryCode === 'category-index-' . CountryEnum::STR_DE_CODE
+      || $strControllerActionNameWithCountryCode === 'category-index-' . CountryEnum::STR_JP_CODE): ?>
+      <meta name="robots" content="noindex, follow" />
+    <?php else: ?>
+      <meta name="robots" content="INDEX, FOLLOW" />
+    <?php endif; ?>
+  <?php endif; ?>
+  <meta http-equiv="Expires" content="0" />
+  <meta name="revisit-after" content="1 days" />
+  <meta http-equiv="REFRESH" content="1500" />
+  <meta property="fb:app_id" content="<?php echo FACEBOOK_APP_ID;?>" />
+  <?php ### End ### Những thẻ tag quan trọng, buộc phải có để SEO ?>
+
+  <title><?php echo $this->view->strPageHeadTitle ?></title>
+  <link rel="icon" href="<?php echo STATIC_GLOBAL_IMAGES_URL ?>/favicon.ico" type="image/x-icon" />
+
+  <?php ### Start ### Những thẻ tag quan trọng, buộc phải có để SEO ?>
+  <?php
+    $strPageCanonicalUrl;
+    if (!empty($this->view->strPageCanonicalUrl)) {
+      $strPageCanonicalUrl = UrlUtil::decodeWithPlus($this->view->strPageCanonicalUrl);
+    }
+  ?>
+  <?php if(!empty($strPageCanonicalUrl)): ?>
+    <link href="<?php echo $strPageCanonicalUrl ?>" rel="canonical">
+  <?php endif;?>
+  <meta property="og:title" content="<?php echo $this->view->strPageHeadTitle ?>">
+  <meta property="og:type" content="<?php echo $this->view->strPageOgType ?>">
+  <?php if(!empty($this->view->strPageOgDescription)): ?>
+    <meta property="og:description" content="<?php echo $this->view->strPageOgDescription ?>">
+  <?php endif; ?>
+  <?php if(!empty($strPageCanonicalUrl)): ?>
+    <meta property="og:url" content="<?php echo $strPageCanonicalUrl?>">
+  <?php endif;?>
+  <?php if($this->view->strPageOgImageUrl): ?>
+    <meta property="og:image" content="<?php echo $this->view->strPageOgImageUrl ?>">
+    <meta property="og:image:url" content="<?php echo $this->view->strPageOgImageUrl ?>"><?php // Fix cho zalo share hình ?>
+    <meta property="og:image:secure_url" content="<?php echo $this->view->strPageOgImageUrl ?>">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+  <?php endif;?>
+  <?php ### End ### Những thẻ tag quan trọng, buộc phải có để SEO ?>
+
+  <?php
+  // Global css
+  $arrGlobalHeaderCSS = $this->assets->collection('global:header:css')->getResources();
+  if ($arrGlobalHeaderCSS):
+    foreach ($arrGlobalHeaderCSS as $css):
+  ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $css->getPath(); ?>?v=<?php echo APPLICATION_VER ?>" />
+  <?php
+    endforeach;
+  endif;
+  ?>
+
+  <?php
+  // Page css
+  $arrPageLevelCSS = $this->assets->collection($this->arrLayoutConfig['scope'] . ':css')->getResources();
+  if ($arrPageLevelCSS):
+    foreach ($arrPageLevelCSS as $css):
+  ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $css->getPath(); ?>?v=<?php echo APPLICATION_VER ?>" />
+  <?php
+    endforeach;
+  endif;
+  ?>
+
+  <script>
+    window.isLoaded = false;
+
+    window.fado = {
+      baseUrl: '<?php echo BASE_URL ?>',
+      staticUrl: '<?php echo $this->arrLayoutConfig['staticUrl'] ?>',
+      imageUrl: '<?php echo $this->arrLayoutConfig['imageUrl'] ?>',
+      uploadUrl: '<?php echo $this->arrLayoutConfig['uploadUrl'] ?>',
+      app_id: '<?php echo FACEBOOK_APP_ID;?>',
+      applicationVer: '<?php echo APPLICATION_VER ?>',
+      applicationEnv: '<?php echo APPLICATION_ENV ?>',
+      totalCartQuantity: <?php echo (int) $this->model->get('cart')->getTotalQuantity() ?>,
+      maxProductPerGetFinalPriceRequest: <?php echo (int) MAX_PRODUCT_PER_GET_FINAL_PRICE_REQUEST ?>,
+      maxAmazonCategoryNodeIdPerTranslateRequest: <?php echo (int) MAX_AMAZON_CATEGORY_NODE_ID_PER_TRANSLATE_REQUEST ?>,
+      brandName: '<?php echo BRAND_NAME; ?>',
+      supportPhone: '<?php echo SUPPORT_PHONE; ?>',
+      supportEmail: '<?php echo SUPPORT_EMAIL; ?>',
+    };
+
+    <?php
+    /**
+     * Chứa thông tin php truyền qua cho js sử dụng, chỉ có tác dụng tại chính trang hiện tại
+     */
+    ?>
+    window.page = {};
+
+    window.loginInfo = <?php echo GeneralUtil::generateJsonInPage($this->arrLoginInfo); ?>;
+
+    window.criteoFado = {
+      deviceType: (window.innerWidth <= 767) ? 'm' : (window.innerWidth >= 980) ? 'd' : 't',
+      emailCustomer: window.loginInfo ? window.loginInfo.email.trim().toLowerCase() : "",
+      accountId: <?php echo !empty(CRITEO_ACCOUNT_ID) ? CRITEO_ACCOUNT_ID : 0 ?>
+    };
+
+    window.onloadCallbackStack = [];
+    window.addOnloadEvent = function(event) {
+      window.onloadCallbackStack.push(event);
+      window.onload = function() {
+        var i = 0;
+        for(i = 0; i < window.onloadCallbackStack.length; i++) {
+          window.onloadCallbackStack[i]();
+        }
+      }
+    };
+
+    window.onbeforeunloadCallbackStack = [];
+    window.addBeforeUnloadEvent = function(event) {
+      window.onbeforeunloadCallbackStack.push(event);
+      window.onbeforeunload = function() {
+        var i = 0;
+        for(i = 0; i < window.onbeforeunloadCallbackStack.length; i++) {
+          window.onbeforeunloadCallbackStack[i]();
+        }
+        return null;
+      }
+    };
+
+    <?php
+    /**
+     * Chứa thông tin về sự kiện đang diễn ra, có tác dụng ở tất cả các trang
+     */
+    ?>
+    window.eventInfo = {};
+  </script>
+
+  <?php $this->partial('/gtm-tracker/_header'); ?>
+</head>
+<body class="<?php echo $this->view->strBodyClass ?>">
+  <?php $this->partial('/gtm-tracker/_body'); ?>
+
+  <div class="fake-header-block"></div>
+
+  <?php echo $this->getContent(); ?>
+
+  <?php $this->partial('/global/_footer-block') ?>
+
+  <?php $this->partial('/global/_header-block') ?>
+
+  <?php
+    $this->partial('/global/_scroll-block',[
+      'strBodyClass' => $this->view->strBodyClass
+    ]);
+  ?>
+
+  <?php $this->partial('/global/_admin-nav',[
+    'arrLoginInfo' => $this->arrLoginInfo,
+  ]); ?>
+
+  <?php $this->partial('/global/_back-to-top') ?>
+
+  <?php $this->partial('/global/_chat-scroll-block') ?>
+
+  <script>
+    window.objLanguageData = <?php echo GeneralUtil::generateJsonInPage($this->view->objLanguageData); ?>;
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '<?php echo FACEBOOK_APP_ID; ?>',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v3.2'
+      });
+    };
+
+    window.addOnloadEvent(function() {
+      window.isLoaded = true;
+
+      (function(d, s, id){
+        setTimeout(function() {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        },1000);
+      }(document, 'script', 'facebook-jssdk'));
+    });
+
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'vi', includedLanguages: 'en,ja,de,vi', multilanguagePage: true}, 'gg-translate');
+    }
+
+    window.page.arrLoginError = [];
+
+    <?php
+      if ($this->router->getMatchedRoute()->getName() !== 'userLoginSocial' && $this->flashSession->has('error')):
+        $arrMessages = $this->flashSession->getMessages('error');
+        foreach($arrMessages as $strMessage):
+    ?>
+      window.page.arrLoginError.push('<?php echo $strMessage; ?>');
+    <?php
+        endforeach;
+      endif;
+    ?>
+
+    <?php
+      // Thông báo lỗi liên quan đến thanh toán banking qua các cổng
+      if(!empty($this->view->arrErrorPaymentBanking)):
+    ?>
+      window.page.arrErrorPaymentBanking = <?php echo GeneralUtil::generateJsonInPage($this->view->arrErrorPaymentBanking); ?>;
+    <?php
+      endif;
+    ?>
+  </script>
+
+  <?php
+  // Global js
+  $arrGlobalFooterJS = $this->assets->collection('global:footer:js')->getResources();
+  if ($arrGlobalFooterJS):
+    foreach ($arrGlobalFooterJS as $js):
+  ?>
+    <script src="<?php echo $js->getPath(); ?>?v=<?php echo APPLICATION_VER ?>"></script>
+  <?php
+    endforeach;
+  endif;
+  ?>
+
+  <?php $this->partial('/gtm-tracker/_footer'); ?>
+
+  <?php
+  // Page js
+  $arrPageLevelJS = $this->assets->collection($this->arrLayoutConfig['scope'] . ':js')->getResources();
+  if ($arrPageLevelJS):
+    foreach ($arrPageLevelJS as $js):
+  ?>
+    <script src="<?php echo $js->getPath(); ?>?v=<?php echo APPLICATION_VER ?>"></script>
+  <?php
+    endforeach;
+  endif;
+  ?>
+</body>
+</html>

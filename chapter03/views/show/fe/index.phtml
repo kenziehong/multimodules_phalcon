@@ -1,0 +1,70 @@
+<?php
+use App\Common\Util\GeneralUtil;
+use App\Common\Enum\CartEnum;
+use App\Common\Util\JsonUtil;
+
+$this->partial('/global/_breadcrumb-block',[
+  'arrBreadcrumbList' => [
+    [
+      'text' => 'Giỏ hàng',
+    ],
+  ],
+  ]);
+
+$arrAsinCriteo = [];
+//add sản phẩm trong giỏ hàng vào Criteo
+if (!empty($this->view->arrCartInfo['cart_data'])) {
+  foreach ($this->view->arrCartInfo['cart_data'] as $intCartType => $arrCartData) {
+    //không add sản phẩm mua sau vào Criteo
+    if ($intCartType == 2 || $intCartType == 3) {
+      continue;
+    }
+
+    foreach ($arrCartData as $strCartLang => $arrCart) {
+      foreach ($arrCart as $strCartKey => $arrData) {
+        $arrAsinCriteo[] = [
+          'id' => $arrData['asin'],
+          'price' => (float) $arrData['newPriceVND'],
+          'quantity' => (int) $arrData['quantity']
+        ];
+      }
+    }
+  }
+}
+?>
+
+<section id="cart-block" class="cart-block">
+  <div class="container">
+    <?php $this->partial('/global/_loading-field-component'); ?>
+  </div>
+</section>
+
+<section id="cart-buy-later-block"></section>
+
+<!-- Start Criteo Basket tag -->
+<script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+<script type="text/javascript">
+  window.criteo_q = window.criteo_q || [];
+  window.criteo_q.push(
+    { event: "setAccount", account: window.criteoFado.accountId },
+    { event: "setSiteType", type: window.criteoFado.deviceType },
+    { event: "setEmail", email: window.criteoFado.emailCustomer },
+    { event: "viewBasket", item: <?php echo JsonUtil::encode($arrAsinCriteo) ?> }
+  );
+</script>
+<!-- End Criteo Basket tag -->
+
+<script>
+  window.page.cartType = <?php echo ($_GET['cartType'] == CartEnum::INT_TYPE_CIF)? CartEnum::INT_TYPE_CIF: 0; ?>;
+  window.page.arrCartInfo = <?php echo GeneralUtil::generateJsonInPage($this->view->arrCartInfo); ?>;
+  window.page.arrShippingProviderList = <?php echo GeneralUtil::generateJsonInPage($this->view->arrShippingProviderList) ?>
+
+  <?php
+    if($this->session->has('VIEW_QUOTATION_ALERT_OUT_OF_STOCK')):
+  ?>
+    window.page.arrOutOfStockProductCart = <?php echo GeneralUtil::generateJsonInPage($this->session->get('VIEW_QUOTATION_ALERT_OUT_OF_STOCK')) ?>;
+  <?php
+      $this->session->remove('VIEW_QUOTATION_ALERT_OUT_OF_STOCK');
+    endif;
+  ?>
+</script>
