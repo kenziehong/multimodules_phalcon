@@ -24,8 +24,20 @@
                     <tr v-for="product in cart">
                         <td>{{product.variantId}}</td>
                         <td>{{product.variantColor}}</td>
-                        <td>{{product.variantQuantity}}</td>
-                        <td>{{product.variantPrice}}</td>
+                        <td class="cart-block__quantity-td">
+                            <div class="my-quantity-control">
+                                <div class="my-quantity-control__btn -minus-btn">-</div>
+                                <input type="number" class="my-quantity-control__input" min="1" max="99" />
+                                <div class="my-quantity-control__btn -plus-btn">+</div>
+                            </div>
+                        </td>
+                        <td>
+                            <button
+                                class="cart-block__control-btn"
+                            >
+                                <span class="cart-block__control-btn__icon"><i class="fal fa-trash-alt"></i></span> Xóa
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
