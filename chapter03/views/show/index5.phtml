@@ -9,7 +9,28 @@
         :class="{ active: hover }">
 
         <p>Cart: {{ cart.length }}</p>
-        <div v-if="hover">This is a secret message.</div>
+        <div v-if="hover">
+            <table v-if="cart.length>0" class="cart-block__cart-tb">
+                <thead>
+                    <tr>
+                        <th class="cart-block__product-info-th">Thông tin</th>
+                        <th class="cart-block__quantity-th">Số lượng</th>
+                        <th class="cart-block__price-th">Thành tiền</th>
+                        <th class="cart-block__control-th">Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr v-for="product in cart">
+                        <td>{{product.variantId}}</td>
+                        <td>{{product.variantColor}}</td>
+                        <td>{{product.variantQuantity}}</td>
+                        <td>{{product.variantPrice}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
     </div>
     <div v-if="hover">This is a secret message.</div>
 

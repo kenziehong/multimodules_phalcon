@@ -68,12 +68,14 @@ Vue.component('product',{
                     variantColor: "green",
                     variantImage: '../resources/image/sock-green.jpg',
                     variantQuantity: 10,
+                    variantPrice: 20000,
                 },
                 {
                     variantId: 2235,
                     variantColor: "blue",
                     variantImage: '../resources/image/sock-blue.jpg',
                     variantQuantity: 12,
+                    variantPrice: 30000,
                 },
             ],
             activeClass: "active",
@@ -88,7 +90,7 @@ Vue.component('product',{
     },
     methods: {
         addToCart: function () {
-            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
+            this.$emit('add-to-cart', this.variants[this.selectedVariant])
         },
         updateProduct: function (index) {
             this.selectedVariant = index
