@@ -203,3 +203,19 @@ var app = new Vue({
     }
   })
 
+Vue.component('welcome-button', {
+template: `
+    <button v-on:click="$emit('welcome')">
+    Click me to be welcomed
+    </button>
+`
+})
+
+var app1 = new Vue({
+    el: '#emit-example-simple',
+    methods: {
+      sayHi: function () {
+        alert('Hi!')
+      }
+    }
+  })
