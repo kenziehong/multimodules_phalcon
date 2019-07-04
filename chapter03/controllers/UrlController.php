@@ -68,5 +68,13 @@ class UrlController extends \Phalcon\Mvc\Controller {
         echo '<a href=" '.$showUrl.' ">go-to-showAction</a>';
     }
 
+    public function index5Action() {
+
+        //create a path
+        $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
+
+        require_once $path;
     }
+
+}
 
