@@ -20,6 +20,17 @@ $router->add(
     ]
 )->setName('redirect');
 
+$router->add(
+    '/showurl/{title}/{id}',
+    [
+        'module' => 'chapter03',
+        'controller' => 'url',
+        'action' => 'show',
+    ]
+)->setName('showUrl');
+
+
+
 //$router->setDefaultModule('hello');
 // $router->setDefaultModule('chapter03');
 

@@ -38,15 +38,35 @@ class UrlController extends \Phalcon\Mvc\Controller {
         echo '<hr>';
         echo '<a href=" '.$zendvnUrl2.' ">go-to-zend</a>';
     }
-
+    
     public function infoAction() {
         echo '<h3 style="color:red">' . __METHOD__ .'</h3>';
         $book_name =  $this->request->getQuery('book_name'); //getPost, take data from FORM
         $price = $this->request->getQuery('price');
-
+        
         echo 'Book Name: '. $book_name;
         echo '<hr>';
         echo 'Price: '. $price;
     }
-}
+    
+    public function showAction() {
+        echo '<h3 style="color:red">' . __METHOD__ .'</h3>';
+
+        $params = $this->router->getParams();
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
+    }
+    
+    public function index4Action() {
+        $showUrl = $this->url->get([
+            'for' => 'showUrl',
+            'title' => 'phalcon-title',
+            'id'=> 123,
+        ]);
+
+        echo '<a href=" '.$showUrl.' ">go-to-showAction</a>';
+    }
+
+    }
 
