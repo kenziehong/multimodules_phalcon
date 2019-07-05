@@ -76,5 +76,22 @@ class UrlController extends \Phalcon\Mvc\Controller {
         require_once $path;
     }
 
+    public function index6Action() {
+
+        //setBasePath
+        $this->url->setBasePath(APPLICATION_PATH);
+
+        //get
+        $basePath = $this->url->getBasePath();
+
+        //create a path
+        $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
+
+        echo 'basePath: ' . $basePath;
+        echo  '<hr>';
+        echo $path;
+
+    }
+
 }
 
