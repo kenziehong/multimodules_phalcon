@@ -51,7 +51,7 @@ class UrlController extends \Phalcon\Mvc\Controller {
     
     public function showAction() {
         echo '<h3 style="color:red">' . __METHOD__ .'</h3>';
-
+        
         $params = $this->router->getParams();
         echo '<pre>';
         print_r($params);
@@ -63,35 +63,52 @@ class UrlController extends \Phalcon\Mvc\Controller {
             'for' => 'showUrl',
             'title' => 'phalcon-title',
             'id'=> 123,
-        ]);
+            ]);
+            
+            echo '<a href=" '.$showUrl.' ">go-to-showAction</a>';
+        }
+        
+        public function index5Action() {
+            
+            //create a path
+            $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
+            
+            require_once $path;
+        }
+        
+        public function index6Action() {
+            
+            //setBasePath
+            $this->url->setBasePath(APPLICATION_PATH);
+            
+            //get
+            $basePath = $this->url->getBasePath();
+            
+            //create a path
+            $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
+            
+            echo 'basePath: ' . $basePath;
+            echo  '<hr>';
+            echo $path;
+            
+        }
+        
+        public function index7Action() {
 
-        echo '<a href=" '.$showUrl.' ">go-to-showAction</a>';
+            //set
+            $this->url->setStaticBaseUri('base/');
+            
+            //difference between get and getStatic(can not pass query string)
+            $staticUrl = $this->url->getStatic('chapter03/url/show');
+            $staticBaseUrl = $this->url->getStaticBaseUri(); //original - slash
+
+            echo '<a href=" '.$staticUrl.' ">go-to-showAction</a>';
+            echo  '<hr>';
+            echo $staticBaseUrl;
+            echo  '<hr>';
+            echo $staticUrl; //base/chapter03/url/show
+            
+        }
+        
     }
-
-    public function index5Action() {
-
-        //create a path
-        $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
-
-        require_once $path;
-    }
-
-    public function index6Action() {
-
-        //setBasePath
-        $this->url->setBasePath(APPLICATION_PATH);
-
-        //get
-        $basePath = $this->url->getBasePath();
-
-        //create a path
-        $path = $this->url->path(APPLICATION_PATH. '/chapter03/temp/path.php');
-
-        echo 'basePath: ' . $basePath;
-        echo  '<hr>';
-        echo $path;
-
-    }
-
-}
-
+    
