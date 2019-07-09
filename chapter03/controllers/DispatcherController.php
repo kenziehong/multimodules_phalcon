@@ -34,6 +34,33 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
         ]);
     }
 
+    public function index3Action(){
+        echo '<br>=============index3Action==============Start</br>';
+        echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+        echo '<br>=============inde3xAction==============End</br>';
+        //show include detailAction
+        $this->dispatcher->forward([
+            'controller' => 'dependency',
+            'action' => 'research',
+            'params' => [
+                'name' => 'zendvn',
+                'color' => 'green',
+            ],
+
+        ]);
+
+        $this->dispatcher->forward([
+            'namespace' => 'Multiphalcon\Hello\Controllers',
+            'controller' => 'dependency',
+            'action' => 'research',
+            'params' => [
+                'name' => 'zendvn',
+                'color' => 'green',
+            ],
+
+        ]);
+    }
+
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';

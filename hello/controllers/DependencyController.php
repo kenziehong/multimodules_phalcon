@@ -14,4 +14,10 @@ class DependencyController extends \Phalcon\Mvc\Controller{
         $di->get('application_service');
 
     }
+
+    public function researchAction(){
+        echo '<br>=============researchAction==============Start</br>';
+            echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+        echo '<br>=============researchAction==============End</br>';
+    }
 }

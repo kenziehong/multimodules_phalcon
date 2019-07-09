@@ -8,6 +8,7 @@ $loader->registerClasses([
     
 $loader->registerNamespaces([
     'Multiphalcon\Vendor\Abccom\Service'=> APPLICATION_PATH . '/vendor/abccom/service',
+    'Multiphalcon\Hello\Controllers'=> APPLICATION_PATH . '/hello/controllers',
 ]);
 
 $loader->register();

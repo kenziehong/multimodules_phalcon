@@ -223,4 +223,21 @@ class DependencyController extends \Phalcon\Mvc\Controller{
 
     }
 
+    public function researchAction(){
+        echo '<br>=============researchAction==============Start</br>';
+            echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+            
+            $params = $this->dispatcher->getParams();
+            $name = $this->dispatcher->getParam('name', 'upper', 'default name');
+            $color = $this->dispatcher->getParam('abc', null, 'default color');
+            echo '<pre>';
+                print_r($params);
+            echo '</pre>';
+            
+            echo '<h3 style="color:red">'.$name.'</h3>';
+            echo '<h3 style="color:red">'.$color.'</h3>';
+
+        echo '<br>=============researchAction==============End</br>';
+    }
+
 }
