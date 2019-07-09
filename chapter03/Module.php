@@ -30,6 +30,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
 	 * Registers services related to the module
 	 */
 	public function registerServices(\Phalcon\DiInterface $dependencyInjector = null){
+
+        #set service dispatcher
         $dependencyInjector->set('dispatcher', function(){
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Multiphalcon\Chapter03\Controllers');
@@ -37,11 +39,17 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
 
         });
 
+        //set service view
         $dependencyInjector->set('view', function(){
             $view =  new \Phalcon\Mvc\View();
             $view->setViewsDir(APPLICATION_PATH . '/chapter03/views');
             return $view;
 
+        });
+
+        //set service chapter03, use for this module, all action belong to it
+        $dependencyInjector->set('chapter03_service', function(){
+            echo '<h3 style="color:red">chapter03_service -- Module.php -- chapter04 --</h3>';
         });
 
     }

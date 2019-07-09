@@ -129,5 +129,98 @@ class DependencyController extends \Phalcon\Mvc\Controller{
             print_r($user2);
         echo "</pre>";
     }
-                
+
+    //depend on a place for setting services (module, controller, action) that we will be allow to use them
+    //service.php => use for all modules
+    //module.php => use for this module
+    //controller-action => use for this action
+    //! if we have same_service(the same name) at 3 places, it priorities at lowest place - Lesson 104
+    //Lesson 102
+    public function index9Action(){
+        
+        //create DI
+        $di = $this->getDI();
+
+        //set service
+        $di->set('index9_service', function(){
+            echo '<h3 style="color:red">index9_service -- dependencyController -- </h3>';
+        });
+
+        //get service that set at this action
+        $di->get('index9_service');
+
+        //get service that set at module chapter03
+        $di->get('chapter03_service');
+
+        //get service that set at service.php
+        $di->get('application_service');
+
+
+    }
+
+    public function index10Action(){
+        //create DI
+        $di = $this->getDI();
+        
+        //get service that is not set at this action
+        #Service 'index9_service' wasn't found in the dependency injection container
+        $di->get('index9_service');
+
+        //get service that set at module chapter03
+        $di->get('chapter03_service');
+
+    }
+
+    //Lesson 106
+    public function index13Action(){
+        $di = $this->getDI();
+        $service = $di->getService('setting_service');
+        $name = $service->getName();
+        $define = $service->getDefinition();
+
+        //change define
+        $service->setDefinition(function(){
+            return new UserService();
+        });
+
+        //many obj can share properties
+        $service->setShared(true);
+        
+        $obj = $service->resolve(); //obj belong to class Multiphalcon\Vendor\Abccom\Service\ExampleService before (User after)
+        $obj2 = $service->resolve(); //obj belong to class Multiphalcon\Vendor\Abccom\Service\ExampleService before (User after)
+        $obj->setFace('index13-facebook');
+
+
+        // echo '<pre>';
+        //     print_r($service);
+        // echo '</pre>';
+
+        // echo '<h3 style="color:red">Name of Service: '.$name.'</h3>';
+        
+        // echo '<pre>';
+        //     print_r($define);
+        // echo '</pre>';
+
+        echo '<pre>';
+            print_r($obj);
+        echo '</pre>';
+
+        echo '<pre>';
+            print_r($obj2);
+        echo '</pre>';
+
+        // Phalcon\Di\Service Object --!!! object belongs to Phalcon\Di\Service
+        // (
+        //     [_name:protected] => setting_service 
+        //     [_definition:protected] => Closure Object --!!!a function has passed at setting this service
+        //         (
+        //         )
+
+        //     [_shared:protected] => 
+        //     [_resolved:protected] => 
+        //     [_sharedInstance:protected] => 
+        // )
+
+    }
+
 }
