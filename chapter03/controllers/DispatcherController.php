@@ -79,6 +79,37 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
 
     }
 
+    public function index7Action(){
+
+        //get name 
+        $module = $this->dispatcher->getModuleName();
+        $controller = $this->dispatcher->getControllerName();
+        $action = $this->dispatcher->getActionName(); //index7
+        $activeMethod = $this->dispatcher->getActiveMethod();//index7Action
+        $classController = $this->dispatcher->getControllerClass();//Multiphalcon\Chapter03\Controllers\DispatcherController
+        $namespace = $this->dispatcher->getNamespaceName(); //Multiphalcon\Chapter03\Controllers
+        $defaultNamespace = $this->dispatcher->getDefaultNamespace(); //Multiphalcon\Chapter03\Controllers
+
+        //get object
+        $activeController = $this->dispatcher->getActiveController();
+        $activeMethod = $this->dispatcher->getActiveMethod();
+
+        //get Factory Default
+        $di = $this->dispatcher->getDI();
+
+
+        echo '<h3 style="color:red">'.$module.'</h3>';
+        echo '<h3 style="color:red">'.$controller.'</h3>';
+        echo '<h3 style="color:red">'.$action.'</h3>';
+        echo '<h3 style="color:red">'.$activeMethod.'</h3>'; 
+        echo '<h3 style="color:red">'.$namespace.'</h3>'; 
+
+        // echo '<pre>';
+        //     print_r($activeController);
+        // echo '</pre>';
+
+    }
+
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';
