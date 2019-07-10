@@ -61,6 +61,22 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
         ]);
     }
 
+    public function index5Action(){
+        echo '<br>=============index5Action==============Start</br>';
+        $this->dispatcher->setParam('school', 'A Chau');    
+        $this->dispatcher->setParam('class', '12');  
+        $this->dispatcher->setParams([
+            'abc' => 'abc',
+            'def' => 123,
+        ]);  
+        $this->dispatcher->forward([
+            'action' => 'detail',
+        ]);  
+
+        echo '<br>=============index5Action==============End</br>';
+
+    }
+
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';
