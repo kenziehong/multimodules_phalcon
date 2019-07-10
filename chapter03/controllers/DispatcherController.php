@@ -68,7 +68,9 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
         $this->dispatcher->setParams([
             'abc' => 'abc',
             'def' => 123,
-        ]);  
+        ]);
+        
+        //!view file of this action will show view file of detailAction
         $this->dispatcher->forward([
             'action' => 'detail',
         ]);  
