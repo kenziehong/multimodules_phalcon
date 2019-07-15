@@ -25,7 +25,7 @@ class DependencyController extends \Phalcon\Mvc\Controller{
         echo '<br>=============researchAction==============Start</br>';
             $previousAction = $this->dispatcher->getPreviousActionName(); //index8
             $previousControl = $this->dispatcher->getPreviousControllerName(); //dispatcher
-            $lastController = $this->dispatcher->getLastController();
+            $lastController = $this->dispatcher->getLastController(); //dispatcher obj
 
             echo '<pre>'; 
                 print_r($lastController);

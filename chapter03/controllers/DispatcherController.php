@@ -113,14 +113,43 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
     public function index8Action() {
         echo '<br>=============index8Action==============Start</br>';
         echo '<h3 style="color:red">'.__METHOD__.'</h3>';
-
+        
         $this->dispatcher->forward([
             'namespace' => 'Multiphalcon\Hello\Controllers',
             'controller' => 'dependency',
             'action' => 'forward',
-        ]);
+            ]);
+            
+            echo '<br>=============index8Action==============End</br>';
+        }
+        
+        public function index9Action() {
+            echo '<br>=============index9Action==============Start</br>';
+                echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+                //$this->dispatcher->dispatch(); //vong lap vo tan
 
-        echo '<br>=============index8Action==============End</br>';
+                //A dependency injection container is required to access the 'response' service
+                $dependencyInjection = $this->getDI();
+                $dispatcher = new \Phalcon\Mvc\Dispatcher();
+                $dispatcher->setDI($dependencyInjection);
+
+                $dispatcher->setActionName('detail');
+                $dispatcher->setControllerName('dispatcher');
+                $dispatcher->setModuleName('chapter04');
+
+                //DispatcherController handler class cannot be loaded
+                $dispatcher->setNamespaceName('Multiphalcon\Chapter03\Controllers');
+
+                //it is inside index9, dif with forward - next to index9
+                $dispatcher->dispatch();
+
+
+                // echo '<pre>';
+                //     print_r($dispatcher);
+                // echo '</pre>';
+            
+            echo '<br>=============index9Action==============End</br>';
+            
     }
 
 
