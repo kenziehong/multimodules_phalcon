@@ -152,6 +152,28 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
             
     }
 
+    public function index10Action() {
+        echo '<br>=============index9Action==============Start</br>';
+            echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+
+            $dependencyInjection = $this->getDI();
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
+            $dispatcher->setDI($dependencyInjection);
+            //IndexController handler class cannot be loaded
+            //default indexAction, indexController
+            $dispatcher->setDefaultNamespace('Multiphalcon\Chapter03\Controllers');
+            $dispatcher->setDefaultController('abc');
+            $dispatcher->setDefaultAction('index1');
+            
+            echo '<pre>';
+            print_r($dispatcher);
+            echo '</pre>';
+            $dispatcher->dispatch();
+        
+        echo '<br>=============index9Action==============End</br>';
+        
+}
+
 
 
     public function detailAction(){
