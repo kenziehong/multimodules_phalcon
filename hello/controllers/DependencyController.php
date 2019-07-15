@@ -20,4 +20,18 @@ class DependencyController extends \Phalcon\Mvc\Controller{
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';
         echo '<br>=============researchAction==============End</br>';
     }
+
+    public function forwardAction(){
+        echo '<br>=============researchAction==============Start</br>';
+            $previousAction = $this->dispatcher->getPreviousActionName(); //index8
+            $previousControl = $this->dispatcher->getPreviousControllerName(); //dispatcher
+            $lastController = $this->dispatcher->getLastController();
+
+            echo '<pre>'; 
+                print_r($lastController);
+            echo '</pre>';
+
+            echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+        echo '<br>=============researchAction==============End</br>';
+    }
 }

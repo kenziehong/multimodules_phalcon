@@ -110,6 +110,21 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
 
     }
 
+    public function index8Action() {
+        echo '<br>=============index8Action==============Start</br>';
+        echo '<h3 style="color:red">'.__METHOD__.'</h3>';
+
+        $this->dispatcher->forward([
+            'namespace' => 'Multiphalcon\Hello\Controllers',
+            'controller' => 'dependency',
+            'action' => 'forward',
+        ]);
+
+        echo '<br>=============index8Action==============End</br>';
+    }
+
+
+
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';
