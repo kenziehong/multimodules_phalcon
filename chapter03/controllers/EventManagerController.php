@@ -47,4 +47,48 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
         $eventManager->fire('event:02', $this); //source $this
         
     }
+
+    
+    public function index3Action() {
+        $eventManager = new Manager();
+        $listener01 = function() {
+            echo '<h3 style="color:red">event 01 - doing 01</h3>';
+        };
+
+        $eventManager->attach('event:01', $listener01);
+
+        $eventManager->fire('event:01', $this); //source $this
+        
+    }
+
+    public function index4Action() {
+        $eventManager = new Manager();
+        $eventManager->enablePriorities(true);
+
+        $eventManager->attach('event:01', function(){
+            echo '<h3 style="color:red">event 01 - doing 01</h3>';
+        }, 20);
+
+        $eventManager->attach('event:01', function(){
+            echo '<h3 style="color:red">event 01 - doing 02</h3>';
+        }, 30);
+
+        $eventManager->attach('event:01', function(){
+            echo '<h3 style="color:red">event 01 - doing 03</h3>';
+        }, 10);
+
+        $eventManager->attach('event:01', function(){
+            echo '<h3 style="color:red">event 01 - doing 04</h3>';
+        }, 100);
+
+        if($eventManager->arePrioritiesEnabled() == true) {
+            echo "enabled";
+
+        } else {
+            echo "disabled";
+        }
+
+        $eventManager->fire('event:01', $this); //source $this
+        
+    }
 }
