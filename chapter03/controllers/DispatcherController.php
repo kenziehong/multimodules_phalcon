@@ -7,6 +7,9 @@ namespace Multiphalcon\Chapter03\Controllers;
 //forward to other apache_get_version
 //give important event
 class DispatcherController extends \Phalcon\Mvc\Controller{
+    public function initialize() {
+        echo '<h3 style="color:red">04 - initialize</h3>';
+    }
 
     public function indexAction(){
         echo '<br>=============indexAction==============Start</br>';
@@ -195,13 +198,36 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
         echo '<br>=============index11Action==============End</br>';
         
     }
+    /*
+    hello dispatcher
+    01 - beforeDispatchLoop
+    02 - beforeDispatch
+    03 - beforeExecuteRoute
+    04 - initialize
+
+    =============index12Action==============Start
+
+    =============index12Action==============End
+    05 - afterExecuteRoute
+    08 - afterDispatch
+    09 - afterDispatchLoop
+     */
 
     public function index12Action() {
         echo '<br>=============index12Action==============Start</br>';
-        
+
         echo '<br>=============index12Action==============End</br>';
 
     }
+
+    /*
+    hello dispatcher
+    01 - beforeDispatchLoop
+    02 - beforeDispatch
+    06 - beforeNotFoundAction
+    07 - beforeException
+    Action 'index13' was not found on handler 'dispatcher'
+    */
 
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
