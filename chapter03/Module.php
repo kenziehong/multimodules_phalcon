@@ -34,7 +34,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
         #set service dispatcher
         $dependencyInjector->set('dispatcher', function(){
             //auto echo, dont need to call
-            echo 'hello dispatcher';
+            //echo 'hello dispatcher';
             /** 
             01-beforeDispatchLoop       yes
             02-beforeDispatch           yes
@@ -47,52 +47,52 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
             09-afterDispatchLoop        no
             */
 
-            $eventManager = new \Phalcon\Events\Manager();
+            // $eventManager = new \Phalcon\Events\Manager();
 
-            //set event type, handler
-            $eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher){
-                echo '<h3 style="color:red">01 - '.$event->getType().'</h3>';
-            });
+            // //set event type, handler
+            // $eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">01 - '.$event->getType().'</h3>';
+            // });
 
-            $eventManager->attach('dispatch:beforeDispatch', function($event, $dispatcher){
-                echo '<h3 style="color:red">02 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:beforeDispatch', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">02 - '.$event->getType().'</h3>';
+            // });
 
-            /*hello dispatcher
-            01 - beforeDispatchLoop
-            02 - beforeDispatch
-            03 - beforeExecuteRoute
-            09 - afterDispatchLoop */
-            $eventManager->attach('dispatch:beforeExecuteRoute', function($event, $dispatcher){
-                echo '<h3 style="color:red">03 - '.$event->getType().'</h3>';
-                return false;
-            });
+            // /*hello dispatcher
+            // 01 - beforeDispatchLoop
+            // 02 - beforeDispatch
+            // 03 - beforeExecuteRoute
+            // 09 - afterDispatchLoop */
+            // $eventManager->attach('dispatch:beforeExecuteRoute', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">03 - '.$event->getType().'</h3>';
+            //     return false;
+            // });
 
-            $eventManager->attach('dispatch:afterExecuteRoute', function($event, $dispatcher){
-                echo '<h3 style="color:red">05 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:afterExecuteRoute', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">05 - '.$event->getType().'</h3>';
+            // });
 
-            $eventManager->attach('dispatch:beforeNotFoundAction', function($event, $dispatcher){
-                echo '<h3 style="color:red">06 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:beforeNotFoundAction', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">06 - '.$event->getType().'</h3>';
+            // });
 
-            $eventManager->attach('dispatch:beforeException', function($event, $dispatcher){
-                echo '<h3 style="color:red">07 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:beforeException', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">07 - '.$event->getType().'</h3>';
+            // });
 
-            $eventManager->attach('dispatch:afterDispatch', function($event, $dispatcher){
-                echo '<h3 style="color:red">08 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:afterDispatch', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">08 - '.$event->getType().'</h3>';
+            // });
 
-            $eventManager->attach('dispatch:afterDispatchLoop', function($event, $dispatcher){
-                echo '<h3 style="color:red">09 - '.$event->getType().'</h3>';
-            });
+            // $eventManager->attach('dispatch:afterDispatchLoop', function($event, $dispatcher){
+            //     echo '<h3 style="color:red">09 - '.$event->getType().'</h3>';
+            // });
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Multiphalcon\Chapter03\Controllers');
 
             //executive event
-            $dispatcher->setEventsManager($eventManager);
+            //$dispatcher->setEventsManager($eventManager);
 
             return $dispatcher;
 
