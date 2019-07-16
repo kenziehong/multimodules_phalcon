@@ -58,8 +58,14 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
                 echo '<h3 style="color:red">02 - '.$event->getType().'</h3>';
             });
 
+            /*hello dispatcher
+            01 - beforeDispatchLoop
+            02 - beforeDispatch
+            03 - beforeExecuteRoute
+            09 - afterDispatchLoop */
             $eventManager->attach('dispatch:beforeExecuteRoute', function($event, $dispatcher){
                 echo '<h3 style="color:red">03 - '.$event->getType().'</h3>';
+                return false;
             });
 
             $eventManager->attach('dispatch:afterExecuteRoute', function($event, $dispatcher){
