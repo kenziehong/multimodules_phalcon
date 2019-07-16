@@ -1,5 +1,6 @@
 <?php
 use Multiphalcon\Vendor\Abccom\Service\ExampleService;
+use Multiphalcon\Vendor\Abccom\Helper\Zendhelper;
 
 $di = new \Phalcon\Di\FactoryDefault();
 $di->set('router', function(){
@@ -21,6 +22,12 @@ $di->set('setting_service', function(){
 // $di->set('dispatcher', function(){
 //     echo 'hello dispatcher';
 // });
+
+//Lesson 73
+$di->set('zendhelp', function(){
+    return new Zendhelper();
+
+});
 
 
 
