@@ -196,6 +196,13 @@ class DispatcherController extends \Phalcon\Mvc\Controller{
         
     }
 
+    public function index12Action() {
+        echo '<br>=============index12Action==============Start</br>';
+        
+        echo '<br>=============index12Action==============End</br>';
+
+    }
+
     public function detailAction(){
         echo '<br>=============detailAction==============Start</br>';
             echo '<h3 style="color:red">'.__METHOD__.'</h3>';

@@ -33,8 +33,26 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface{
 
         #set service dispatcher
         $dependencyInjector->set('dispatcher', function(){
+            //auto echo, dont need to call
+            echo 'hello dispatcher';
+
+            $eventManager = new \Phalcon\Events\Manager();
+
+            //set event type, handler
+            $eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher){
+                echo '<h3 style="color:red">dispatch:beforeDispatchLoop</h3>';
+
+                echo '<pre>';
+                    print_r($dispatcher);
+                echo'</pre>';
+            });
+
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Multiphalcon\Chapter03\Controllers');
+
+            //executive event
+            $dispatcher->setEventsManager($eventManager);
+
             return $dispatcher;
 
         });

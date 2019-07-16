@@ -17,4 +17,10 @@ $di->set('setting_service', function(){
     return new ExampleService();
 });
 
+// Lesson 116, can not access, because it has been registry in Module
+// $di->set('dispatcher', function(){
+//     echo 'hello dispatcher';
+// });
+
+
 
