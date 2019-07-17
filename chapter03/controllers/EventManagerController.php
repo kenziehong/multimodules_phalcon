@@ -91,4 +91,24 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
         $eventManager->fire('event:01', $this); //source $this
         
     }
+
+    public function index5Action() {
+        $eventManager = new Manager();
+        $data = [
+            'name' => 'phalcon',
+            'city' => 'hcm',
+        ];
+
+        //receive
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 01</h3>';
+            
+            echo '<pre>';
+                print_r($obj);
+            echo '</pre>';
+        });
+
+        //send 
+        $eventManager->fire('event:02', $this, $data);
+    }
 }
