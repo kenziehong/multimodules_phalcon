@@ -189,4 +189,36 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
         $eventManager->fire('event:01', $this);
         $eventManager->fire('event:02', $this);
     }
+    
+    public function index9Action() {
+        $eventManager = new Manager();
+        $eventManager->collectResponses(true);
+
+        $eventManager->attach('event:01', function(){
+            return 'reponse 01';
+        });
+        
+        $eventManager->attach('event:01', function(){
+            return 'reponse 02';
+        });
+        
+        $eventManager->attach('event:01', function(){
+            return 'reponse 03';
+        });
+
+        $eventManager->attach('event:02', function(){
+            return 'reponse 04';
+        });
+
+        $eventManager->fire('event:01', $this);
+        $eventManager->fire('event:02', $this);
+
+        //just save response from last event
+        $response = $eventManager->getResponses();
+
+        echo '<pre>';
+            print_r($response);
+        echo '</pre>';
+
+    }
 }
