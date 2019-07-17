@@ -2,6 +2,8 @@
 namespace Multiphalcon\Chapter03\Controllers;
 
 use Phalcon\Events\Manager;
+use Multiphalcon\Vendor\Abccom\Event\Event01;
+use Multiphalcon\Vendor\Abccom\Listener\Somelist;
 class EventManagerController extends \Phalcon\Mvc\Controller {
     public function indexAction() {
         //echo __METHOD__;
@@ -220,5 +222,15 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
             print_r($response);
         echo '</pre>';
 
+    }
+
+    public function index10Action() {
+        $eventManager = new Manager();
+        $event01 =  new Event01();
+
+        $event01->setEventsManager($eventManager);
+        $eventManager->attach('abc', new Somelist());
+
+        $event01->showInfo();
     }
 }
