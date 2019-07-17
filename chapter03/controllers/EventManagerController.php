@@ -120,4 +120,44 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
         //send 
         $eventManager->fire('event:02', $this, $data);
     }
+
+    public function index7Action() {
+        $eventManager = new Manager();
+        $eventManager->enablePriorities(true);
+
+        //receive
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 01</h3>';
+        }, 10);
+
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 02</h3>';
+            $event->stop();
+            if  ($event->isStopped()) {
+                echo "is-stop";
+            } else {
+                echo "is not-stop";
+            }
+        }, 60);
+
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 03</h3>';
+        }, 50);
+
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 03</h3>';
+        }, 30);
+
+        $eventManager->attach('event:02', function($event, $obj, $data){
+            echo '<h3 style="color:red">event 02 - doing 04</h3>';
+            if  ($event->isStopped()) {
+                echo "is-stop";
+            } else {
+                echo "is not-stop";
+            }
+        }, 100);
+
+        //send 
+        $eventManager->fire('event:02', $this);
+    }
 }
