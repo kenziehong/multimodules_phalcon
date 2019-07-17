@@ -102,9 +102,18 @@ class EventManagerController extends \Phalcon\Mvc\Controller {
         //receive
         $eventManager->attach('event:02', function($event, $obj, $data){
             echo '<h3 style="color:red">event 02 - doing 01</h3>';
+
+            //type event
+            $event->setType('abc');
+            echo $event->getType();
             
+            // echo '<pre>';
+            //     print_r($event->getSource());
+            // echo '</pre>';
+
+            $event->setData(['dataChange' => 'data-change']);
             echo '<pre>';
-                print_r($obj);
+                print_r($event->getData());
             echo '</pre>';
         });
 
